@@ -13,6 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/addressbook")
 public class AddressBookController {
+
     @Autowired
     private AddressBookService service;
 
@@ -38,7 +39,11 @@ public class AddressBookController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteEntry(@PathVariable Long id) {
-        service.deleteEntry(id);
-        return ResponseEntity.ok("Entry deleted successfully");
+        boolean removed = service.deleteEntry(id);
+        if (removed) {
+            return ResponseEntity.ok("Entry deleted successfully");
+        } else {
+            return ResponseEntity.status(404).body("Entry not found");
+        }
     }
 }
