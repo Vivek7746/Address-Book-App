@@ -1,10 +1,16 @@
 package com.bridgelabz.addressbookapp.model;
 
+import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "address_book")
+@Data
+@NoArgsConstructor
 public class AddressBookEntry {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -12,21 +18,15 @@ public class AddressBookEntry {
     private String name;
     private String phoneNumber;
 
-    // Constructors
-    public AddressBookEntry() {}
-
-    public AddressBookEntry(String name, String phoneNumber) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
+    // Constructor to create an entity from DTO
+    public AddressBookEntry(AddressBookDTO dto) {
+        this.name = dto.getName();
+        this.phoneNumber = dto.getPhoneNumber();
     }
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public String getPhoneNumber() { return phoneNumber; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    // Update method to modify entity from DTO
+    public void updateFromDTO(AddressBookDTO dto) {
+        this.name = dto.getName();
+        this.phoneNumber = dto.getPhoneNumber();
+    }
 }
