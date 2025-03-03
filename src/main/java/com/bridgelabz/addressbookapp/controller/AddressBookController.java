@@ -1,7 +1,7 @@
 package com.bridgelabz.addressbookapp.controller;
 
 import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
-import com.bridgelabz.addressbookapp.model.AddressBookEntry;
+import com.bridgelabz.addressbookapp.model.AddressBook;
 import com.bridgelabz.addressbookapp.service.AddressBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,31 +10,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("/addressbook")
 public class AddressBookController {
-
     @Autowired
     private AddressBookService service;
 
     @GetMapping
-    public ResponseEntity<List<AddressBookEntry>> getAllEntries() {
+    public ResponseEntity<List<AddressBook>> getAllEntries() {
         return ResponseEntity.ok(service.getAllEntries());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<AddressBookEntry>> getEntryById(@PathVariable Long id) {
+    public ResponseEntity<Optional<AddressBook>> getEntryById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getEntryById(id));
     }
 
     @PostMapping
-    public ResponseEntity<AddressBookEntry> addEntry(@RequestBody AddressBookDTO dto) {
+    public ResponseEntity<AddressBook> addEntry(@RequestBody AddressBookDTO dto) {
         return ResponseEntity.ok(service.addEntry(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<AddressBookEntry>> updateEntry(@PathVariable Long id, @RequestBody AddressBookDTO dto) {
+    public ResponseEntity<Optional<AddressBook>> updateEntry(@PathVariable Long id, @RequestBody AddressBookDTO dto) {
         return ResponseEntity.ok(service.updateEntry(id, dto));
     }
 
